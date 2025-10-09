@@ -13,6 +13,14 @@ fastapi = {extras = ["standard"], version = "*"}
 sqlmodel = "==0.0.27"
 loguru = "==0.7.3"
 psycopg = {extras = ["binary"], version = "*"}
+redis = "*"
+celery = "*"
+flower = "*"
+redisbeat = "*"
+jsonpickle = "*"
+fastapi-mail = "*"
+aiosmtplib = "*"
+email-validator = "*"
 
 [dev-packages]
 
