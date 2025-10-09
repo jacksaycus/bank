@@ -1,6 +1,9 @@
 import os
-from app.core.config import settings
+
+from backend.app.core.config import settings
+
 from loguru import logger
+
 logger.remove()
 
 LOG_DIR = os.path.join(os.path.dirname(__file__), "logs")

@@ -5,16 +5,16 @@ name = "pypi"
 
 [packages]
 asyncpg = "==0.30.0"
-alembic = "==1.14.0"
-argon2-cffi = "==23.1.0"
-psycopg = {extras = ["binary", "pool"], version = "*"}
-greenlet = "==3.1.1"
-pydantic-settings = "==2.7.0"
+alembic = "==1.16.5"
+argon2-cffi = "==25.1.0"
+greenlet = "==3.2.4"
+pydantic-settings = "==2.11.0"
 fastapi = {extras = ["standard"], version = "*"}
-sqlmodel = "==0.0.22"
+sqlmodel = "==0.0.27"
 loguru = "==0.7.3"
+psycopg = {extras = ["binary"], version = "*"}
 
 [dev-packages]
 
 [requires]
-python_version = "3.13"
+python_version = "3.14.0"
