@@ -29,15 +29,17 @@ services:
     depends_on:
       - postgres
       - mailpit
+      - redis
+      - rabbitmq
     command: /start.sh
     networks:
       - nextgen_local_nw
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.api.entrypoints=web"
-      - "traefik.http.routes.api.rule=Hoasr(`api.localhost`)"
-      - "traefik.http.routers.api.services=api-services"
-      - "traefik.http.services.api-services.loadbalancer.server.port=8000"
+      - "traefik.http.routers.api.rule=Host(`api.localhost`)"
+      - "traefik.http.routers.api.service=api-service"
+      - "traefik.http.services.api-service.loadbalancer.server.port=8000"
 
   mailpit:
     image: docker.io/axllent/mailpit:v1.20.3
@@ -66,6 +68,54 @@ services:
     networks:
       - nextgen_local_nw
   
+  redis:
+    image: docker.io/redis:7.0-alpine
+    command: redis-server --appendonly yes
+    networks:
+      - nextgen_local_nw
+
+  rabbitmq:
+    image: docker.io/rabbitmq:3.13-management
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    volumes:
+      - nextgen_rabbitmq_data:/var/lib/rabbitmq
+    networks:
+      - nextgen_local_nw
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.rabbitmq.entrypoints=web"
+      - "traefik.http.routers.rabbitmq.rule=Host(`rabbitmq.localhost`)"
+      - "traefik.http.routers.rabbitmq.service=rabbitmq-service"
+      - "traefik.http.services.rabbitmq-service.loadbalancer.server.port=15672"
+  celeryworker:
+    <<: *api
+    ports: []
+    command: /start-celeryworker.sh
+
+  flower:
+    <<: *api
+    ports:
+      - "5555:5555"
+    volumes:
+      - nextgen_flower_data:/data
+    command: /start-flower.sh
+    depends_on:
+      - redis
+      - rabbitmq
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.flower.entrypoints=web"
+      - "traefik.http.routers.flower.rule=Host(`flower.localhost`)"
+      - "traefik.http.routers.flower.service=flower-service"
+      - "traefik.http.services.flower-service.loadbalancer.server.port=15672"
+
+  celerybeat:
+    <<: *api
+    ports: []
+    command: /start-celerybeat.sh
+
 networks:
   nextgen_local_nw:
     external: true
@@ -73,4 +123,6 @@ networks:
 volumes:
   nextgen_local_db:
   nextgen_mailpit_data:
+  nextgen_flower_data:
+  nextgen_rabbitmq_data:
 
