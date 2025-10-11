@@ -5,7 +5,6 @@ name = "pypi"
 
 [packages]
 asyncpg = "==0.30.0"
-alembic = "==1.16.5"
 argon2-cffi = "==25.1.0"
 greenlet = "==3.2.4"
 pydantic-settings = "==2.11.0"
@@ -21,6 +20,7 @@ jsonpickle = "*"
 fastapi-mail = "*"
 aiosmtplib = "*"
 email-validator = "*"
+alembic = "*"
 
 [dev-packages]
 
