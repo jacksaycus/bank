@@ -21,6 +21,7 @@ fastapi-mail = "*"
 aiosmtplib = "*"
 email-validator = "*"
 alembic = "*"
+pyjwt = "==2.10.1"
 
 [dev-packages]
 
