@@ -1,0 +1,27 @@
+{% extends "base.txt" %}
+
+{% block header %} Your Virtual Card is Now Active {% endblock %}
+
+{% block content %}
+
+Dear {{full_name}},
+
+Great news!. Your virtual card has been activated and is now ready for use.:
+  
+  Card Type: {{ card_type }}
+  Card Number: {{ masked_card_number }}
+  CVV: {{ cvv }}
+  Expiry_date: {{ expiry_date }}
+
+  Daily Limit: {{ currency }} {{ daily_limit }}
+  Monthly Limit: {{ currency }} {{ monthly_limit }}
+
+Your card is now ready for use! You can:
+Make online purchases
+Top up your card balance
+Track your spending through your account
+Manage your card settings and limits
+
+Security Tip: Please store your CVV securely and never share it with anyone.
+    This is the only time we will show your complete card details in an email
+{% endblock %}

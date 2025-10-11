@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %} Virtual Card Activated {% endblock %}
+
+{% block header %} Your Virtual Card is Now Active {% endblock %}
+
+{% block content %}
+
+<p>Dear {{ full_name }},</p>
+
+<p>Great news!. Your virtual card has been activated and is now ready for use.
+</p>
+
+<div style="background-color: #f5f5f5; padding: 15px; border-radius: 5px; margin: 15px 0;">
+  <h3 style="margin-top: 0;">Card Details:</h3>
+
+  <ul style="list-style-type: none; padding-left: 0;">
+    <li style="margin: 10px 0;"><strong> Card Type: </strong> {{ card_type }}</li>
+    <li style="margin: 10px 0;"><strong> Card Number: </strong>{{ masked_card_number }}</li>
+    <li style="margin: 10px 0;"><strong> CVV: </strong> {{ cvv }}</li>
+    <li style="margin: 10px 0;"><strong> Expiry Date: </strong> {{ expiry_date }}</li>
+
+    <li style="margin: 10px 0;"><strong> Daily Limit: </strong> {{ currency }} {{ daily_limit }} </li>
+    <li style="margin: 10px 0;"><strong> Monthly Limit: </strong> {{ currency }} {{ monthly_limit }} </li>
+
+  </ul>
+</div>
+
+<div style="background-color: #e8f5e9; padding: 15px; border-radius: 5px; margin: 20px 0;">
+  <p style="margin: 0;"><strong>Your card is now ready for use!</strong> You can: </p>
+  <ul style="margin-top: 10px;">
+    <li>Make online purchases</li>
+    <li>Top up your card balance</li>
+    <li>Track your spending through your account</li>
+    <li>Manage your card settings and limits</li>
+  </ul>
+
+</div>
+
+<div style="background-color: #fff3cd; padding: 15px; border-radius: 5px; margin: 20px 0;">
+  <p style="margin: 0;"><strong>Security Tip:</strong> Please store your CVV securely and never share it with anyone.
+    This is the only time we will show your complete card details in an email</p>
+</div>
+
+
+{% endblock %}

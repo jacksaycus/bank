@@ -1,0 +1,32 @@
+{% extends "base.txt" %}
+
+{% block header %} Your Virtual Card Has Been Blocked {% endblock %}
+
+{% block content %}
+
+Dear {{full_name}},
+
+For your security, your virtual card has been blocked
+  
+  Card Type: {{ card_type }}
+  Card Number: {{ masked_card_number }}
+  Block Reason: {{ block_reason }}
+  Additional Informtion: {{ blocked_reason_description }}
+
+  Blocked At: {{ blocked_at }}
+  
+Next Steps:
+ If you did not request this block, please contact our support team immediately.
+* To unblock your card, please visit our nearest branch with valid identification.
+* For additional assistance, contact our 24/7 support.
+
+
+IMPORTANT: For your protection, any pending transactions may be declined while your card is blocked.
+
+
+If you need immediate assistance, please contact us at {{ support_email }} or visit your nearest branch.
+
+
+Security Tip: Please store your CVV securely and never share it with anyone.
+    This is the only time we will show your complete card details in an email
+{% endblock %}

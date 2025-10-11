@@ -1,0 +1,16 @@
+{% extends "base.txt" %}
+
+{% block header %} Your One-Time Password {% endblock %}
+
+{% block content %}
+Hello,
+
+Your One-Time Password (OTP) for login is:
+
+{{ otp }}
+
+This OTP is valid for {{ expiry_time }} minutes. Please use it within this time frame to complete your login process.
+
+If you did not request this OTP, please ignore this email and contact our support team immediately.
+
+{% endblock %}

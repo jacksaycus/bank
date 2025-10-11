@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block header %} One-Time Password {% endblock %}
+
+{% block content %}
+Hello,
+
+Your One-Time password (OTP) for transfer authorization is:
+{{ otp }}
+
+This OTP is valid for {{ expiry_time }} minutes. Please use it within this time frame to complete your transfer
+  authorization.
+
+If you did not initiate this transfer, please ignore this email and contact our support team immediately.
+
+{% endblock %}

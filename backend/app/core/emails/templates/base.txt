@@ -1,0 +1,10 @@
+{% block header %}{% endblock %}
+
+{% block content %}{% endblock %}
+
+{% block footer %}
+    If you have any questions, please contact us at{{ support_email }}.
+    
+    Thanks for using our service! © {{ site_name }} Team. All rights reserved.
+      
+{% endblock %}

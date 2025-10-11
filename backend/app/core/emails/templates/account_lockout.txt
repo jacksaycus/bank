@@ -1,0 +1,25 @@
+{% extends "base.txt" %}
+
+{% block header %} Account Security Alert {% endblock %}
+
+{% block content %}
+Hello,
+
+For your security, your user account has been temporarily locked due to multiple failed login attempts.
+
+Your account will be automatically unlocked after {{ lockout_duration }} minutes.
+
+If you did not attempt to login to your account, we recommend:
+
+
+  1. Change your password immediately when your account unlocks.
+  2. Contact our support team if you believe your account has been compromised
+  3. Check your email for any suspicious activity.
+
+
+Time of lockout: {{ lockout_time }}
+Account will unlock at: {{ unlock_time }}
+
+If you need immediate assistance, please contact our support team.
+
+{% endblock %}
