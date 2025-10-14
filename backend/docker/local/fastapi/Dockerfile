@@ -1,16 +1,14 @@
-ARG PYTHON_VERSION=3.14.0
+ARG PYTHON_VERSION=3.13.8
 
 FROM python:${PYTHON_VERSION}-slim-bookworm AS python
 
-# Stage 1: build dependencyh wheels
+# Stage 1: build dependency wheels
 FROM python AS python-build-stage
 
 RUN apt-get update && apt-get install \
   --no-install-recommends -y \
   build-essential \
-  libpq-dev \
-  libxml2-dev \
-  libxslt-dev
+  libpq-dev 
 
 COPY ./backend/requirements.txt .
 
@@ -18,15 +16,15 @@ RUN pip wheel --wheel-dir /usr/src/app/wheels \
   -r requirements.txt \
   --no-cache-dir
 
-    # Stage 2: Python run stage
-    FROM python AS python-run-stage
+# Stage 2: Python run stage
+FROM python AS python-run-stage
 
-    ARG APP_HOME=/src
-    ARG APP_USER=fastapi
-    ARG APP_GROUP=faseapi
+ARG APP_HOME=/src
+ARG APP_USER=fastapi
+ARG APP_GROUP=fastapi
 
-    ENV PYTHONDONTWRITEBYTECODE=1 \
-      PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE=1 \
+  PYTHONUNBUFFERED=1
 
 WORKDIR ${APP_HOME}
 
@@ -34,11 +32,11 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
   sudo git bash-completion nano ssh \
   gettext \
   && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \
-  && rm -rf /var/lib/apt/lists/* 
+  && rm -rf /var/lib/apt/lists/*
 
 RUN groupadd -r ${APP_GROUP} && \
   useradd -r -g ${APP_GROUP} -d ${APP_HOME} -m ${APP_USER}
-    
+
 RUN mkdir -p ${APP_HOME}/backend/app/logs && \
   chown -R ${APP_USER}:${APP_GROUP} ${APP_HOME}/backend/app/logs && \
   chmod 775 ${APP_HOME}/backend/app/logs
@@ -54,11 +52,13 @@ COPY --chown=${APP_USER}:{APP_GROUP} ./backend/docker/local/fastapi/celery/worke
 COPY --chown=${APP_USER}:{APP_GROUP} ./backend/docker/local/fastapi/celery/beat/start.sh /start-celerybeat.sh
 COPY --chown=${APP_USER}:{APP_GROUP} ./backend/docker/local/fastapi/celery/flower/start.sh /start-flower.sh
 
+
+
 RUN sed -i 's/\r$//g' /entrypoint.sh /start.sh /start-celeryworker.sh /start-celerybeat.sh /start-flower.sh && \
   chmod +x /entrypoint.sh /start.sh /start-celeryworker.sh /start-celerybeat.sh /start-flower.sh
-  
+
 COPY --chown=${APP_USER}:${APP_GROUP} . ${APP_HOME}
-  
+
 USER ${APP_USER}
 
-ENTRYPOINT [ "/entrypoint.sh"]
+ENTRYPOINT [ "/entrypoint.sh" ]

@@ -38,7 +38,7 @@ class EmailTemplate:
             plain_content = plain_template.render(**context)
 
             task = send_email_task.delay(
-                recpients=recipients_list,
+                recipients=recipients_list,
                 subject=subject_override or cls.subject,
                 html_content=html_content,
                 plain_content=plain_content,

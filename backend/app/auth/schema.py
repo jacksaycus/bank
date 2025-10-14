@@ -36,6 +36,7 @@ class RoleChoicesSchema(str, Enum):
 
 class BaseUserSchema(SQLModel):
     username: str | None = Field(default=None, max_length=12, unique=True)
+    # username: Annotated[str | None , Field(default=None, max_length=12, unique=True)]
     email: EmailStr = Field(unique=True, index=True, max_length=255)
     first_name: str = Field(max_length=30)
     last_name: str = Field(max_length=30)
