@@ -6,7 +6,7 @@ from backend.app.api.services.profile import (
   initiate_image_uplaod,
   update_profile_image_url,
 )
-from backend.app.user_profile.schema import ImageTypeSchema
+from backend.app.user_profile.enums import ImageTypeSchema
 from backend.app.core.celery_app import celery_app
 from backend.app.core.db import get_session
 from backend.app.core.logging import get_logger

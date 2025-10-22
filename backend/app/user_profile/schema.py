@@ -7,36 +7,12 @@ from sqlmodel import Field, SQLModel
 from pydantic import field_validator
 from backend.app.user_profile.utils import validate_id_dates
 
+from backend.app.user_profile.enums import(
+    GenderSchema, MaritalStatusSchema, IdentificationTypeSchema, SalutationSchema, EmploymentStatusSchema
+)
+
 from backend.app.auth.schema import RoleChoicesSchema
 
-
-class SalutationSchema(str, Enum):
-    Mr = "Mr"
-    Mrs = "Mrs"
-    Miss = "Miss"
-
-class GenderSchema(str, Enum):
-    Male = "Male"
-    Female = "Female"
-    Other = "Other"
-
-class MaritalSatusSchema(str, Enum):
-    Married = "Married"
-    Divorced = "Divorced"
-    Single = "Single"
-    Widowed = "Widowed"
-
-class IdentificationTypeSchema(str, Enum):
-    Passport = "Passport"
-    Drivers_License = "Drivers_License"
-    National_ID = "National_ID"
-
-class EmploymentStatusSchema(str, Enum):
-    Employed = "Employed"
-    Unemployed = "Unemployed"
-    Self_Employed = "Self_Employed"
-    Student = "Student"
-    Retired = "Retired"
 
 class ProfileBaseSchema(SQLModel):
     title: SalutationSchema
@@ -44,7 +20,7 @@ class ProfileBaseSchema(SQLModel):
     date_of_birth: date
     country_of_birth: CountryShortName
     place_of_birth: str
-    marital_status: MaritalSatusSchema
+    marital_status: MaritalStatusSchema
     means_of_identification: IdentificationTypeSchema
     id_issue_date: date
     id_expiry_date: date
@@ -78,7 +54,7 @@ class ProfileUpdateSchema(ProfileBaseSchema):
     date_of_birth: date | None = None
     country_of_birth: CountryShortName | None = None
     place_of_birth: str | None = None
-    marital_status: MaritalSatusSchema | None = None
+    marital_status: MaritalStatusSchema | None = None
     means_of_identification: IdentificationTypeSchema | None = None
     id_issue_date: date | None = None
     id_expiry_date: date | None = None
@@ -101,11 +77,7 @@ class ProfileUpdateSchema(ProfileBaseSchema):
         if v is not None and "id_issue_date" in values.data:
             validate_id_dates(values.data["id_issue_date"],v)
         return v
-    
-class ImageTypeSchema(str, Enum):
-    PROFILE_PHOTO = "profile_photo"
-    ID_PHOTO = "id_photo"
-    SIGNATURE_PHOTO = "signature_photo"
+
 
 class ProfileResponseSchema(SQLModel):
     username: str

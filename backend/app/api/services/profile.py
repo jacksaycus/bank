@@ -7,7 +7,8 @@ from sqlmodel.ext.asyncio.session import AsyncSession
 from backend.app.auth.models import User
 from backend.app.core.logging import get_logger
 from backend.app.user_profile.models import Profile
-from backend.app.user_profile.schema import ProfileCreateSchema,ProfileUpdateSchema,ImageTypeSchema,RoleChoicesSchema
+from backend.app.user_profile.schema import ProfileCreateSchema,ProfileUpdateSchema ,RoleChoicesSchema
+from backend.app.user_profile.enums import ImageTypeSchema
 from backend.app.auth.models import User
 from backend.app.core.utils.image import validate_image
 from backend.app.core.tasks.image_upload import upload_profile_image_task
