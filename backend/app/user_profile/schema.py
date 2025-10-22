@@ -119,3 +119,9 @@ class ProfileResponseSchema(SQLModel):
 
 class Config:
     from_attributes = True
+
+class PaginatedProfileResponseSchema(SQLModel):
+    profiles: list[ProfileResponseSchema]
+    total: int
+    skip: int
+    limit: int

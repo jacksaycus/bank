@@ -2,7 +2,7 @@ from fastapi import APIRouter
 
 from backend.app.api.routes import home
 from backend.app.api.routes.auth import register, activate, login, password_reset, refresh, logout
-from backend.app.api.routes.profile import create,update,upload,me
+from backend.app.api.routes.profile import create,update,upload,me, all_profiles
 
 api_router = APIRouter()
 
@@ -17,3 +17,4 @@ api_router.include_router(create.router)
 api_router.include_router(update.router)
 api_router.include_router(upload.router)
 api_router.include_router(me.router)
+api_router.include_router(all_profiles.router)
