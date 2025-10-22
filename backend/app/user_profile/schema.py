@@ -106,3 +106,16 @@ class ImageTypeSchema(str, Enum):
     PROFILE_PHOTO = "profile_photo"
     ID_PHOTO = "id_photo"
     SIGNATURE_PHOTO = "signature_photo"
+
+class ProfileResponseSchema(SQLModel):
+    username: str
+    first_name: str
+    middle_name: str
+    last_name: str
+    email: str
+    id_no: str
+    role: RoleChoicesSchema
+    profile: ProfileBaseSchema | None
+
+class Config:
+    from_attributes = True
