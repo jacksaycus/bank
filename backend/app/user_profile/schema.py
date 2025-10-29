@@ -1,17 +1,19 @@
 from datetime import date
-from enum import Enum
 
+from pydantic import field_validator
 from pydantic_extra_types.country import CountryShortName
 from pydantic_extra_types.phone_numbers import PhoneNumber
 from sqlmodel import Field, SQLModel
-from pydantic import field_validator
-from backend.app.user_profile.utils import validate_id_dates
-
-from backend.app.user_profile.enums import(
-    GenderEnum, MaritalStatusEnum, IdentificationTypeEnum, SalutationEnum, EmploymentStatusEnum
-)
 
 from backend.app.auth.schema import RoleChoicesSchema
+from backend.app.user_profile.enums import (
+    EmploymentStatusEnum,
+    GenderEnum,
+    IdentificationTypeEnum,
+    MaritalStatusEnum,
+    SalutationEnum,
+)
+from backend.app.user_profile.utils import validate_id_dates
 
 
 class ProfileBaseSchema(SQLModel):
@@ -37,17 +39,19 @@ class ProfileBaseSchema(SQLModel):
     employer_country: CountryShortName
     annual_income: float
     date_of_employment: date
-    profile_photo_url:str | None = Field(default=None)
-    id_photo_url:str | None = Field(default=None)
+    profile_photo_url: str | None = Field(default=None)
+    id_photo_url: str | None = Field(default=None)
     signature_photo_url: str | None = Field(default=None)
+
 
 class ProfileCreateSchema(ProfileBaseSchema):
     @field_validator("id_expiry_date")
     def validate_id_dates(cls, v, values):
         if "id_issue_date" in values.data:
-            validate_id_dates(values.data["id_issue_date"],v)
+            validate_id_dates(values.data["id_issue_date"], v)
         return v
-    
+
+
 class ProfileUpdateSchema(ProfileBaseSchema):
     title: SalutationEnum | None = None
     gender: GenderEnum | None = None
@@ -73,9 +77,9 @@ class ProfileUpdateSchema(ProfileBaseSchema):
     date_of_employment: date | None = None
 
     @field_validator("id_expiry_date")
-    def validate_id_dates(cls, v:date | None, values):
+    def validate_id_dates(cls, v: date | None, values) -> date | None:
         if v is not None and "id_issue_date" in values.data:
-            validate_id_dates(values.data["id_issue_date"],v)
+            validate_id_dates(values.data["id_issue_date"], v)
         return v
 
 
@@ -89,8 +93,9 @@ class ProfileResponseSchema(SQLModel):
     role: RoleChoicesSchema
     profile: ProfileBaseSchema | None
 
-class Config:
-    from_attributes = True
+    class Config:
+        from_attributes = True
+
 
 class PaginatedProfileResponseSchema(SQLModel):
     profiles: list[ProfileResponseSchema]

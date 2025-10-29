@@ -6,13 +6,12 @@ from sqlalchemy import func, text
 from sqlalchemy.dialects import postgresql as pg
 from sqlmodel import Column, Field, Relationship
 
-from backend.app.user_profile.schema import ProfileBaseSchema
+from backend.app.next_of_kin.schema import NextOfKinBaseSchema
 
 if TYPE_CHECKING:
     from backend.app.auth.models import User
 
-
-class Profile(ProfileBaseSchema, table=True):
+class NextOfKin(NextOfKinBaseSchema, table=True):
     id: uuid.UUID = Field(
         sa_column=Column(
             pg.UUID(as_uuid=True),
@@ -36,7 +35,6 @@ class Profile(ProfileBaseSchema, table=True):
             onupdate=func.current_timestamp(),
         ),
     )
-
     user_id: uuid.UUID = Field(foreign_key="user.id", ondelete="CASCADE")
 
-    user: "User" = Relationship(back_populates="profile")
+    user: "User" = Relationship(back_populates="next_of_kins")

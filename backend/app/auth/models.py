@@ -10,6 +10,7 @@ from backend.app.auth.schema import BaseUserSchema,RoleChoicesSchema
 
 if TYPE_CHECKING:
    from backend.app.user_profile.models import Profile
+   from backend.app.next_of_kin.models import NextOfKin
 
 class User(BaseUserSchema, table=True):
    id: uuid.UUID = Field(sa_column=Column(
@@ -51,7 +52,8 @@ class User(BaseUserSchema, table=True):
          "lazy": "selectin"
       }
    )
-
+   next_of_kins: list["NextOfKin"] = Relationship(back_populates="user")
+   
    @computed_field
    @property
    def full_name(self) -> str:
