@@ -1,6 +1,5 @@
 from datetime import datetime
 from uuid import UUID
-
 from sqlmodel import Field, SQLModel
 
 from backend.app.bank_account.enums import (
@@ -37,4 +36,3 @@ class BankAccountUpdateSchema(BankAccountBaseSchema):
     account_name: str | None = None
     is_primary: bool | None = None
     account_status: AccountStatusEnum | None = None
- 
