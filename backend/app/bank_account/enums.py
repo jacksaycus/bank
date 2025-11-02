@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class AccountTypeEnum(str, Enum):
     Current = "current"
     Savings = "savings"
@@ -14,9 +15,9 @@ class AccountStatusEnum(str, Enum):
     Closed = "closed"
     Frozen = "frozen"
 
+
 class AccountCurrencyEnum(str, Enum):
     USD = "USD"
     EUR = "EUR"
     GBP = "GBP"
     KES = "KES"
-    

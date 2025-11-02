@@ -10,7 +10,6 @@ from backend.app.bank_account.schema import BankAccountBaseSchema
 
 if TYPE_CHECKING:
     from backend.app.auth.models import User
-    from backend.app.user_profile.models import Profile
 
 class BankAccount(BankAccountBaseSchema, table=True):
     id: uuid.UUID = Field(
@@ -20,12 +19,12 @@ class BankAccount(BankAccountBaseSchema, table=True):
         ),
         default_factory=uuid.uuid4,
     )
-    crated_at: datetime = Field(
+    created_at: datetime = Field(
         default_factory=lambda: datetime.now(timezone.utc),
         sa_column=Column(
             pg.TIMESTAMP(timezone=True),
             nullable=False,
-            server_default=text("CURRNET_TIMESTAMP"),
+            server_default=text("CURRENT_TIMESTAMP"),
         ),
     )
     updated_at: datetime = Field(

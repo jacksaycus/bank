@@ -42,7 +42,7 @@ async def create_bank_account(
 
         if not user:
             raise HTTPException(
-                status_code=status.HTTP_400_NOT_FOUND,
+                status_code=status.HTTP_404_NOT_FOUND,
                 detail={"status":"error", "message":"User not found"},
             )
         
@@ -106,19 +106,26 @@ async def create_bank_account(
             detail={"status": "error","message":"Failed to create account"},
         )
     
-async def active_bank_account(
-        account_id: UUID,
-        verified_by: UUID,
-        session: AsyncSession,
+async def activate_bank_account(
+    account_id: UUID,
+    verified_by: UUID,
+    session: AsyncSession,
 ) -> tuple[BankAccount, User]:
     try:
         statement = (
             select(BankAccount, User)
             .join(User)
-            .where(BankAccount.user_id == account_id, BankAccount.id != verified_by)
+            .where(BankAccount.id == account_id, BankAccount.user_id == verified_by)
         )
+        logger.debug(
+            f"verified_by {verified_by} {statement} "
+        )
+        
+
         result = await session.exec(statement)
+        
         account_user_tuple = result.first()
+        logger.info(f"result is {account_user_tuple} ")
 
         if not account_user_tuple:
             raise HTTPException(

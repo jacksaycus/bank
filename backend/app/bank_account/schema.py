@@ -1,5 +1,6 @@
 from datetime import datetime
 from uuid import UUID
+
 from sqlmodel import Field, SQLModel
 
 from backend.app.bank_account.enums import (
@@ -7,6 +8,7 @@ from backend.app.bank_account.enums import (
     AccountStatusEnum,
     AccountTypeEnum,
 )
+
 
 class BankAccountBaseSchema(SQLModel):
     account_type: AccountTypeEnum
@@ -21,6 +23,7 @@ class BankAccountBaseSchema(SQLModel):
     kyc_verified_by: UUID | None = Field(default=None)
     interest_rate: float = Field(default=0.0)
 
+
 class BankAccountCreateSchema(BankAccountBaseSchema):
     account_number: str | None = None
 
@@ -29,8 +32,9 @@ class BankAccountReadSchema(BankAccountBaseSchema):
     id: UUID
     user_id: UUID
     account_number: str | None = None
-    crated_at: datetime
+    created_at: datetime
     updated_at: datetime
+
 
 class BankAccountUpdateSchema(BankAccountBaseSchema):
     account_name: str | None = None

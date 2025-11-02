@@ -191,7 +191,7 @@ async def get_all_user_profiles(
           limit: int = 20,
 ) -> tuple[list[User], int]:
      try:
-          if current_user.role != RoleChoicesSchema.BRANCH_MNANGER:
+          if current_user.role != RoleChoicesSchema.BRANCH_MANAGER:
                raise HTTPException(
                     status_code=status.HTTP_403_FORBIDDEN,
                     detail={

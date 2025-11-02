@@ -3,7 +3,7 @@ from backend.app.core.emails.base import EmailTemplate
 
 class AccountActivatedEmail(EmailTemplate):
     template_name = "account_activated.html"
-    template_name_plain = "account_activeted.txt"
+    template_name_plain = "account_activated.txt"
     subject = "Your Bank Account Has been Activated"
 
 async def send_account_activated_email(
