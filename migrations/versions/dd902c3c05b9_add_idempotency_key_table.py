@@ -1,8 +1,8 @@
 """add_idempotency_key_table
 
-Revision ID: bcca95465597
-Revises: 5503ebfe1831
-Create Date: 2025-11-04 11:33:17.057657
+Revision ID: dd902c3c05b9
+Revises: a5cc56ce2757
+Create Date: 2025-11-09 05:05:00.044224
 
 """
 from typing import Sequence, Union
@@ -13,8 +13,8 @@ import sqlmodel
 
 
 # revision identifiers, used by Alembic.
-revision: str = 'bcca95465597'
-down_revision: Union[str, None] = '5503ebfe1831'
+revision: str = 'dd902c3c05b9'
+down_revision: Union[str, None] = 'a5cc56ce2757'
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
 

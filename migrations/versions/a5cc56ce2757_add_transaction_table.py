@@ -1,8 +1,8 @@
 """add_transaction_table
 
-Revision ID: be87d8d99453
-Revises: e023cb783416
-Create Date: 2025-11-02 13:21:50.800088
+Revision ID: a5cc56ce2757
+Revises: 
+Create Date: 2025-11-09 05:00:48.557244
 
 """
 from typing import Sequence, Union
@@ -13,8 +13,8 @@ import sqlmodel
 from sqlalchemy.dialects import postgresql
 
 # revision identifiers, used by Alembic.
-revision: str = 'be87d8d99453'
-down_revision: Union[str, None] = 'e023cb783416'
+revision: str = 'a5cc56ce2757'
+down_revision: Union[str, None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
 
@@ -38,9 +38,9 @@ def upgrade() -> None:
     sa.Column('amount', sa.Numeric(scale=2), nullable=False),
     sa.Column('description', sqlmodel.sql.sqltypes.AutoString(length=250), nullable=False),
     sa.Column('reference', sqlmodel.sql.sqltypes.AutoString(), nullable=False),
-    sa.Column('transaction_type', sa.Enum('Deposit', 'Withdrawal', 'Transfer', 'Reversal', 'Fee_charged', 'Loan_Disbursement', 'Loan_Repayment', 'Interest_Credited', name='transactiontypeenum'), nullable=False),
+    sa.Column('transaction_type', sa.Enum('Deposit', 'Withdrawal', 'Transfer', 'Reversal', 'Fee_Charged', 'Loan_Disbursement', 'Loan_Repayment', 'Interest_Credited', name='transactiontypeenum'), nullable=False),
     sa.Column('transaction_category', sa.Enum('Credit', 'Debit', name='transactioncategoryenum'), nullable=False),
-    sa.Column('status', sa.Enum('Pending', 'Completed', 'Failed', 'Reversed', 'cancelled', name='transactionstatusenum'), nullable=False),
+    sa.Column('status', sa.Enum('Pending', 'Completed', 'Failed', 'Reversed', 'Cancelled', name='transactionstatusenum'), nullable=False),
     sa.Column('balance_before', sa.Numeric(scale=2), nullable=False),
     sa.Column('balance_after', sa.Numeric(scale=2), nullable=False),
     sa.Column('failed_reason', sqlmodel.sql.sqltypes.AutoString(), nullable=True),

@@ -13,6 +13,7 @@ if TYPE_CHECKING:
     from backend.app.auth.models import User
     from backend.app.bank_account.models import BankAccount
 
+
 class Transaction(TransactionBaseSchema, table=True):
     id: uuid.UUID = Field(
         sa_column=Column(
@@ -50,7 +51,7 @@ class Transaction(TransactionBaseSchema, table=True):
         sa_column=Column(
             pg.TIMESTAMP(timezone=True),
             nullable=False,
-            onupdate=func.currrent_timestamp(),
+            onupdate=func.current_timestamp(),
         ),
     )
 
@@ -60,10 +61,10 @@ class Transaction(TransactionBaseSchema, table=True):
         back_populates="sent_transactions",
         sa_relationship_kwargs={"foreign_keys": "Transaction.sender_account_id"},
     )
-    
+
     receiver_account: "BankAccount" = Relationship(
         back_populates="received_transactions",
-        sa_relationship_kwargs={"foreign_keys": "Transaction.receiver_account_id"}
+        sa_relationship_kwargs={"foreign_keys": "Transaction.receiver_account_id"},
     )
 
     sender: "User" = Relationship(
@@ -75,11 +76,11 @@ class Transaction(TransactionBaseSchema, table=True):
         back_populates="received_transactions",
         sa_relationship_kwargs={"foreign_keys": "Transaction.receiver_id"},
     )
-
     processor: "User" = Relationship(
         back_populates="processed_transactions",
         sa_relationship_kwargs={"foreign_keys": "Transaction.processed_by"},
     )
+
 
 class IdempotencyKey(SQLModel, table=True):
     id: uuid.UUID = Field(
@@ -99,13 +100,12 @@ class IdempotencyKey(SQLModel, table=True):
         sa_column=Column(
             pg.TIMESTAMP(timezone=True),
             nullable=False,
-            server_default=text("CURRENT_TIMESTAMP")
+            server_default=text("CURRENT_TIMESTAMP"),
         ),
     )
-
     expires_at: datetime = Field(
         sa_column=Column(
             pg.TIMESTAMP(timezone=True),
             nullable=False,
-       ),
+        ),
     )

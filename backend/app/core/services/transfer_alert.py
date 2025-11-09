@@ -23,7 +23,7 @@ async def send_transfer_alert(
         sender_account_number: str,
         receiver_account_number: str,
         amount: Decimal,
-        converted_admount: Decimal,
+        converted_amount: Decimal,
         sender_currency: AccountCurrencyEnum,
         receiver_currency: AccountCurrencyEnum,
         exchange_rate: Decimal | None = None,
@@ -60,7 +60,7 @@ async def send_transfer_alert(
         if conversion_applied:
             sender_context.update(
                 {
-                    "converted_amount" : format_currency(converted_admount),
+                    "converted_amount" : format_currency(converted_amount),
                     "exchange_rate" : (
                         format_currency(exchange_rate) if exchange_rate else "1.00"
                     ),
@@ -77,7 +77,7 @@ async def send_transfer_alert(
             "user_name": receiver_name,
             "counterparty_name": sender_name,
             "amount" : format_currency(
-                converted_admount if conversion_applied else amount
+                converted_amount if conversion_applied else amount
             ),
             "currency" : receiver_currency.value,
             "user_balance": format_currency(receiver_balance),

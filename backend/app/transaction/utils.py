@@ -6,18 +6,19 @@ from sqlmodel.ext.asyncio.session import AsyncSession
 from backend.app.core.logging import get_logger
 from backend.app.transaction.enums import (
     TransactionFailureReason,
-    TransactionStatusEnum
+    TransactionStatusEnum,
 )
 from backend.app.transaction.models import Transaction
 
 logger = get_logger()
 
+
 async def mark_transaction_failed(
-        transaction: Transaction,
-        reason: TransactionFailureReason,
-        details: dict,
-        session: AsyncSession,
-        error_message: Optional[str] = None,
+    transaction: Transaction,
+    reason: TransactionFailureReason,
+    details: dict,
+    session: AsyncSession,
+    error_message: Optional[str] = None,
 ) -> None:
     try:
         transaction.status = TransactionStatusEnum.Failed
@@ -26,7 +27,7 @@ async def mark_transaction_failed(
 
         current_metadata = transaction.transaction_metadata or {}
 
-        failure_details ={
+        failure_details = {
             "reason": reason.value,
             "timestamp": datetime.now(timezone.utc).isoformat(),
             "error_message": error_message,
@@ -35,7 +36,7 @@ async def mark_transaction_failed(
 
         transaction.transaction_metadata = {
             **current_metadata,
-            "failure_details" : failure_details,
+            "failure_details": failure_details,
         }
 
         session.add(transaction)

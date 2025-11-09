@@ -70,7 +70,7 @@ class Settings(BaseSettings):
     CURRENCY_CODE_EUR: str = "02"
     CURRENCY_CODE_GBP: str = "03"
     CURRENCY_CODE_KES: str = "04"
-    MAX_BANK_ACCOUNTS: int = 3 if ENVIRONMENT == "local" else 5
+    MAX_BANK_ACCOUNTS: int = 30 if ENVIRONMENT == "local" else 5
 
     CLOUDINARY_CLOUD_NAME: str = ""
     CLOUDINARY_API_KEY: str = ""

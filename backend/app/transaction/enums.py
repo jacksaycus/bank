@@ -1,25 +1,29 @@
 from enum import Enum
 
+
 class TransactionTypeEnum(str, Enum):
     Deposit = "deposit"
     Withdrawal = "withdrawal"
     Transfer = "transfer"
     Reversal = "reversal"
-    Fee_charged = "fee_charged"
+    Fee_Charged = "fee_charged"
     Loan_Disbursement = "loan_disbursement"
     Loan_Repayment = "loan_repayment"
     Interest_Credited = "interest_credited"
+
 
 class TransactionStatusEnum(str, Enum):
     Pending = "pending"
     Completed = "completed"
     Failed = "failed"
     Reversed = "reversed"
-    cancelled = "cancelled"
+    Cancelled = "cancelled"
+
 
 class TransactionCategoryEnum(str, Enum):
     Credit = "credit"
     Debit = "debit"
+
 
 class TransactionFailureReason(str, Enum):
     INSUFFICIENT_BALANCE = "insufficient_balance"
@@ -31,4 +35,4 @@ class TransactionFailureReason(str, Enum):
     INVALID_AMOUNT = "invalid_amount"
     INVALID_ACCOUNT = "invalid_account"
     SELF_TRANSFER = "self_transfer"
-    SUSPICIOUS_ACTIVITY = "suspicious_sactivity"
+    SUSPICIOUS_ACTIVITY = "suspicious_activity"
