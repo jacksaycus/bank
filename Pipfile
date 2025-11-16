@@ -72,7 +72,6 @@ pytz = "==2025.2"
 pyyaml = "==6.0.3"
 redis = "==5.0.3"
 redisbeat = "==1.2.6"
-reportlab = "==4.2.2"
 rich = "==14.2.0"
 rich-toolkit = "==0.15.1"
 rignore = "==0.7.0"
@@ -98,6 +97,7 @@ watchfiles = "==1.1.0"
 wcwidth = "==0.2.14"
 websockets = "==15.0.1"
 win32-setctime = "==1.2.0"
+reportlab = "==4.2.2"
 
 [dev-packages]
 

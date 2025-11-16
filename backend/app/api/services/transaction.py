@@ -15,6 +15,7 @@ from backend.app.bank_account.utils import calculate_conversion
 from backend.app.core.config import settings
 from backend.app.core.logging import get_logger
 from backend.app.core.services.transfer_alert import send_transfer_alert
+from backend.app.core.tasks.statement import generate_statement_pdf
 from backend.app.transaction.enums import (
     TransactionCategoryEnum,
     TransactionStatusEnum,
@@ -960,3 +961,43 @@ async def _complete_approved_transfer(transaction: Transaction, session: AsyncSe
         await session.rollback()
         logger.error(f"Unexpected error in _complete_approved_transfer: {e}")
         raise
+
+async def generate_user_statement(
+        user_id: uuid.UUID,
+        start_date: datetime,
+        end_date: datetime,
+        session: AsyncSession,
+        account_number: str | None = None,
+) -> dict:
+    try:
+        statement_data = await prepare_statement_data(
+            user_id = user_id,
+            start_date = start_date,
+            end_date = end_date,
+            session = session,
+            account_number=account_number,
+        )
+
+        statement_id = str(uuid.uuid4())
+
+        task = generate_statement_pdf.delay(
+            statement_data = statement_data, statement_id=statement_id
+        )
+
+        return {
+            "status": "pending",
+            "message" : "Statement generation initiated",
+            "statement_id": statement_id,
+            "task_id": task.id
+        }
+    
+    except ValueError as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail={"status":"error","message":str(e)},
+        )
+    except Exception as e:
+        logger.error(f"failed to initiate statement generation: {e}")
+        raise
+
+    
