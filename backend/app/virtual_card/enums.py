@@ -4,6 +4,7 @@ class VirtualCardStatusEnum(str, Enum):
     Active = "active"
     Inactive = "inactive"
     Pending = "pending"
+    Blocked = "blocked"
     Expired = "expired"
 
 class VirtualCardTypeEnum(str, Enum):
